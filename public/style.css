@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #251A0C;
+  color: white;
+}
+
+.container {
+  max-width: 1236px;
+  margin: 0 auto;
+  padding: 0 30px;
+  box-sizing: content-box;
+}
