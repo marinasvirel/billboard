@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -14,9 +15,11 @@ class UserController extends Controller
         return view('user.create');
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        // return view('user.create');
+        $data = $request->validated();
+        User::create($data);
+        return redirect(route('home'))->with('message', 'Регистрация прошла успешно');
     }
 
     public function login()

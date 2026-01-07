@@ -20,6 +20,11 @@
       @endguest
     </header>
     <main>
+      @if (session('message'))
+      <div class="alert-message">
+        {{ session('message') }}
+      </div>
+      @endif
       @yield('content')
     </main>
     <footer>© Зинченко Марина, 2025</footer>
