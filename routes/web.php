@@ -10,7 +10,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('register', [UserController::class, 'create'])->name('register');
-Route::post('register', [UserController::class, 'store'])->name('userStore');
+Route::post('register', [UserController::class, 'store'])->name('user.store');
 
 Route::get('verify', function () {
     return view('user.verify');
@@ -32,5 +32,5 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('login', [UserController::class, 'login'])->name('login');
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
-Route::get('delete/user/{id}', [UserController::class, 'delete'])->name('userDelete');
-Route::get('restore/user/{id}', [UserController::class, 'restore'])->name('userRestore');
+Route::get('user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
+Route::get('user/restore/{id}', [UserController::class, 'restore'])->name('user.restore');
