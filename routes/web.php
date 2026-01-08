@@ -8,9 +8,12 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('register', [UserController::class, 'create'])->name('register');
-Route::post('register', [UserController::class, 'store'])->name('user.store');
-Route::get('login', [UserController::class, 'login'])->name('login');
+Route::middleware('guest')->group(function () {
+    Route::get('register', [UserController::class, 'create'])->name('register');
+    Route::post('register', [UserController::class, 'store'])->name('user.store');
+    Route::get('login', [UserController::class, 'login'])->name('login');
+    Route::post('login', [UserController::class, 'authenticate'])->name('user.authenticate');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('verify', function () {
@@ -28,8 +31,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('announcement.create');
     })->name('announcement.create');
 
-    Route::get('logout', [UserController::class, 'logout'])->name('logout');
-
     Route::get('user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
     Route::get('user/restore/{id}', [UserController::class, 'restore'])->name('user.restore');
 });
+
+Route::get('logout', [UserController::class, 'logout'])->name('logout');

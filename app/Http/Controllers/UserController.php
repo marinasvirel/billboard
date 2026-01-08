@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserLoginRequest;
+use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class UserController extends Controller
         return view('user.create');
     }
 
-    public function store(UserRequest $request)
+    public function store(UserRegisterRequest $request)
     {
         $data = $request->validated();
         $user = User::create($data);
@@ -28,6 +29,18 @@ class UserController extends Controller
     public function login()
     {
         return view('user.login');
+    }
+
+    public function authenticate(UserLoginRequest $request)
+    {
+        $credentials = $request->validated();
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect('announcement/create');
+        }
+        return back()->withErrors([
+            'email' => 'Предоставленные учетные данные не соответствуют нашим записям.',
+        ])->onlyInput('email');
     }
 
     public function delete($id)
