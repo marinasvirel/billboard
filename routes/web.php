@@ -18,19 +18,16 @@ Route::middleware('auth')->group(function () {
         return view('user.verify');
     })->name('verification.notice');
 
-    Route::get('announcement/create', function () {
-        return view('announcement.create');
-    })->name('announcement.create');
-
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
         return redirect()->route('announcement.create');
     })->middleware('signed')->name('verification.verify');
+});
 
-    Route::post('/email/verification-notification', function (Request $request) {
-        $request->user()->sendEmailVerificationNotification();
-        return back()->with('message', 'Verification link sent!');
-    })->middleware('throttle:6,1')->name('verification.send');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('announcement/create', function () {
+        return view('announcement.create');
+    })->name('announcement.create');
 
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
 

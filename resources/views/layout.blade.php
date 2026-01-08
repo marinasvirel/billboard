@@ -15,6 +15,7 @@
       @auth
       <a href="{{ route('logout') }}">Выйти</a>
       <div>{{ auth()->user()->name }}</div>
+      <a href="{{ route('announcement.create') }}">Подать объявление</a>
       @endauth
       @guest
       <a href="{{ route('login') }}">Войти</a>
