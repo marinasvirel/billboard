@@ -14,6 +14,7 @@
       <a href="{{ route('home') }}">home</a>
       @auth
       <a href="{{ route('logout') }}">Выйти</a>
+      <div>{{ auth()->user()->name }}</div>
       @endauth
       @guest
       <a href="{{ route('login') }}">Войти</a>
