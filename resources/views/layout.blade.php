@@ -27,7 +27,7 @@
       @endif
       @yield('content')
     </main>
-    <footer>© Зинченко Марина, 2025</footer>
+    <footer>© Зинченко Марина, 2026</footer>
   </div>
 
 </body>
