@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -18,8 +19,10 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $data = $request->validated();
-        User::create($data);
-        return redirect(route('home'))->with('message', 'Регистрация прошла успешно');
+        $user = User::create($data);
+        event(new Registered($user));
+        Auth::login($user);
+        return redirect(route('verification.notice'));
     }
 
     public function login()
