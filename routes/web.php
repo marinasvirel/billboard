@@ -13,6 +13,18 @@ Route::middleware('guest')->group(function () {
     Route::post('register', [UserController::class, 'store'])->name('user.store');
     Route::get('login', [UserController::class, 'login'])->name('login');
     Route::post('login', [UserController::class, 'authenticate'])->name('user.authenticate');
+
+    Route::get('/forgot-password', function () {
+        return view('user.forgot-password');
+    })->name('password.request');
+
+    Route::post('/forgot-password', [UserController::class, 'forgotPasswordStore'])->name('password.email');
+
+    Route::get('/reset-password/{token}', function (string $token) {
+        return view('user.reset-password', ['token' => $token]);
+    })->name('password.reset');
+
+    Route::post('/reset-password', [UserController::class, 'resetPasswordUpdate'])->name('password.update');
 });
 
 Route::middleware('auth')->group(function () {

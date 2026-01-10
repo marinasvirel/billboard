@@ -1,10 +1,11 @@
 @extends('layout')
-@section('title', 'Авторизация')
+@section('title', 'Новый пароль')
 @section('content')
-<section class="login">
-  <h1>Авторизация</h1>
-  <form action="{{ route('user.authenticate') }}" method="post">
+<section class="reset">
+  <h1>Новый пароль</h1>
+  <form action="{{ route('password.update') }}" method="post">
     @csrf
+    <input type="hidden" name="token" value="{{ $token }}">
     <input type="email" name="email" value="{{ old('email') }}" placeholder="E-mail">
     <div class="error-box">
       @error('email')
@@ -17,10 +18,10 @@
       {{ $message }}
       @enderror
     </div>
-    <button class="form-btn" type="submit">Войти</button>
+    <input type="password" name="password_confirmation" placeholder="Повтор пароля">
+    <button class="form-btn" type="submit">Отправить</button>
   </form>
   <a class="link-page" href="{{ route('register') }}">Ссылка на регистрацию</a>
   <a class="link-page" href="{{ route('home') }}">Вернуться на главную</a>
-  <a class="link-page" href="{{ route('password.request') }}">Восстановить пароль</a>
 </section>
 @endsection
