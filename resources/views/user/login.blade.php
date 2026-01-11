@@ -19,8 +19,8 @@
     </div>
     <button class="form-btn" type="submit">Войти</button>
   </form>
-  <a class="link-page" href="{{ route('register') }}">Ссылка на регистрацию</a>
   <a class="link-page" href="{{ route('home') }}">Вернуться на главную</a>
+  <a class="link-page" href="{{ route('register') }}">Ссылка на регистрацию</a>
   <a class="link-page" href="{{ route('password.request') }}">Восстановить пароль</a>
 </section>
 @endsection

@@ -9,16 +9,18 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container wrapper">
     <header>
       <a href="{{ route('home') }}">home</a>
       @auth
-      <a href="{{ route('logout') }}">Выйти</a>
+      <a class="header-link" href="{{ route('logout') }}">Выйти</a>
       <div>{{ auth()->user()->name }}</div>
-      <a href="{{ route('announcement.create') }}">Подать объявление</a>
+      <a class="header-link" href="{{ route('announcement.create') }}">Подать объявление</a>
       @endauth
       @guest
-      <a href="{{ route('login') }}">Войти</a>
+      @if(!Route::is('login', 'register', 'password.*'))
+      <a class="header-link" href="{{ route('login') }}">Войти</a>
+      @endif
       @endguest
     </header>
     <main>

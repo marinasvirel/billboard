@@ -1,3 +1,9 @@
+:root {
+  --brown: #7C4A11;
+  --hover: #F5891B;
+  --focus: #FFA600;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,6 +18,7 @@ html {
 body {
   background-color: #251A0C;
   color: white;
+  font-size: 14px;
 }
 
 .container {
@@ -19,4 +26,104 @@ body {
   margin: 0 auto;
   padding: 0 30px;
   box-sizing: content-box;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+input {
+  display: block;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px 4px 0px 0px;
+  font-size: 16px;
+  color: var(--brown);
+}
+
+input::placeholder{
+  color: #7c4a119a;
+}
+
+input:focus {
+  outline: 1px var(--focus) solid;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.header-link {
+  display: inline-block;
+}
+
+button,
+.header-link {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  border: 3px white solid;
+  background-color: var(--brown);
+}
+
+.link-page {
+  display: table;
+  background-color: var(--brown);
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.link-page,
+input,
+.error-box {
+  width: 20vw;
+}
+
+button:hover,
+.header-link:hover,
+.link-page:hover {
+  background-color: var(--hover);
+}
+
+button:focus,
+.header-link:focus,
+.link-page:focus {
+  background-color: var(--focus);
+}
+
+form {
+  margin-bottom: 50px;
+}
+
+form button {
+  margin-top: 10px;
+}
+
+header,
+footer {
+  padding: 20px 0;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.error-box {
+  background-color: red;
+}
+
+h1 {
+  margin-bottom: 30px;
+  font-size: 36px;
 }
