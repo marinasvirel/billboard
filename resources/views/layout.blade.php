@@ -11,7 +11,9 @@
 <body>
   <div class="container wrapper">
     <header>
-      <a href="{{ route('home') }}">home</a>
+      <a href="{{ route('home') }}">
+        <img src="{{ asset('img/logo.png') }}" alt="logo">
+      </a>
       @auth
       <a class="header-link" href="{{ route('logout') }}">Выйти</a>
       <div>{{ auth()->user()->name }}</div>
