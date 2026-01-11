@@ -90,7 +90,8 @@ button,
 .link-page,
 input,
 .error-box {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
 }
 
 button:hover,
@@ -116,6 +117,12 @@ form button {
 header,
 footer {
   padding: 20px 0;
+}
+
+header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 main {
