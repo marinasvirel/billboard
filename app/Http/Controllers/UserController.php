@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserForgotRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
@@ -47,9 +48,9 @@ class UserController extends Controller
         ])->onlyInput('email');
     }
 
-    public function forgotPasswordStore(Request $request)
+    public function forgotPasswordStore(UserForgotRequest $request)
     {
-        $request->validate(['email' => 'required|email']);
+        $request->validated();
         $status = Password::sendResetLink(
             $request->only('email')
         );

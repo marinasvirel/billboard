@@ -11,7 +11,7 @@
       {{ $message }}
       @enderror
     </div>
-    <input type="email" name="email" value="{{ old('email') }}" placeholder="E-mail">
+    <input type="text" name="email" value="{{ old('email') }}" placeholder="E-mail">
     <div class="error-box">
       @error('email')
       {{ $message }}
