@@ -1,3 +1,5 @@
+@import url("fonts/fonts.css");
+
 :root {
   --brown: #7C4A11;
   --hover: #F5891B;
@@ -19,6 +21,7 @@ body {
   background-color: #251A0C;
   color: white;
   font-size: 14px;
+  font-family: "Roboto-Regular";
 }
 
 .container {
@@ -44,7 +47,7 @@ input {
   color: var(--brown);
 }
 
-input::placeholder{
+input::placeholder {
   color: #7c4a119a;
 }
 
@@ -126,4 +129,9 @@ main {
 h1 {
   margin-bottom: 30px;
   font-size: 36px;
+  font-family: "AdventPro-Bold";
+}
+
+footer{
+  font-family: "Roboto-Black";
 }
