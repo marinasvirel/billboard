@@ -20,14 +20,26 @@ html {
 body {
   background-color: #251A0C;
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   font-family: "Roboto-Regular";
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 30px solid #C1A380;
+  pointer-events: none;
+  z-index: 10;
 }
 
 .container {
   max-width: 1236px;
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 60px;
   box-sizing: content-box;
 }
 
@@ -116,10 +128,10 @@ form button {
 
 header,
 footer {
-  padding: 20px 0;
+  padding: 50px 0;
 }
 
-header{
+header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -139,6 +151,6 @@ h1 {
   font-family: "AdventPro-Bold";
 }
 
-footer{
+footer {
   font-family: "Roboto-Black";
 }
