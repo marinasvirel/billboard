@@ -2,6 +2,7 @@
 
 :root {
   --brown: #7C4A11;
+  --dark-brown: #251A0C;
   --hover: #F5891B;
   --focus: #FFA600;
 }
@@ -158,4 +159,12 @@ h1 {
 
 footer {
   font-family: "Roboto-Black";
+}
+
+.form-message,
+.alert {
+  font-family: "Unbounded-Regular";
+  color: var(--dark-brown);
+  padding: 10px;
+  background-color: bisque;
 }

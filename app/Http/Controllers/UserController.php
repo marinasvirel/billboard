@@ -60,7 +60,7 @@ class UserController extends Controller
             $request->only('email')
         );
         return $status === Password::ResetLinkSent
-            ? back()->with(['message' => __($status)])
+            ? back()->with(['status' => 'Проверьте вашу почту, мы отправили письмо'])
             : back()->withErrors(['email' => __($status)]);
     }
 
