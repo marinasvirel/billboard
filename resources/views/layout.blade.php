@@ -15,9 +15,11 @@
         <img src="{{ asset('img/logo.png') }}" alt="logo">
       </a>
       @auth
-      <a class="header-link" href="{{ route('logout') }}">Выйти</a>
-      <div>{{ auth()->user()->name }}</div>
-      <a class="header-link" href="{{ route('announcement.create') }}">Подать объявление</a>
+      <div class="header-links">
+        <a class="header-link" href="{{ route('profile') }}">{{ auth()->user()->name }}</a>
+        <a class="header-link" href="{{ route('announcement.create') }}">Подать объявление</a>
+        <a class="header-link" href="{{ route('logout') }}">Выйти</a>
+      </div>
       @endauth
       @guest
       @if(!Route::is('login', 'register', 'password.*'))

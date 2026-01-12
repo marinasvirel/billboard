@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('profile', [UserController::class, 'profile'])->name('profile');
+
     Route::get('announcement/create', function () {
         return view('announcement.create');
     })->name('announcement.create');

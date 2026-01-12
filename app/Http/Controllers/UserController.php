@@ -36,6 +36,11 @@ class UserController extends Controller
         return view('user.login');
     }
 
+        public function profile()
+    {
+        return view('user.profile');
+    }
+
     public function authenticate(UserLoginRequest $request)
     {
         $credentials = $request->validated();

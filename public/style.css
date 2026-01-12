@@ -79,6 +79,11 @@ a {
   display: inline-block;
 }
 
+.header-links {
+  display: flex;
+  gap: 20px;
+}
+
 button,
 .header-link {
   font-size: 16px;
