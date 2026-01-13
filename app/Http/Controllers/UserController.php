@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserForgotRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
+use App\Http\Requests\UserResetRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class UserController extends Controller
         return view('user.login');
     }
 
-        public function profile()
+    public function profile()
     {
         return view('user.profile');
     }
@@ -60,18 +61,13 @@ class UserController extends Controller
             $request->only('email')
         );
         return $status === Password::ResetLinkSent
-            ? back()->with(['status' => 'Проверьте вашу почту, мы отправили письмо'])
+            ? back()->with(['status' => 'Проверьте вашу почту, мы отправили письмо. Перейдите по ссылке в письме.'])
             : back()->withErrors(['email' => __($status)]);
     }
 
-    public function resetPasswordUpdate(Request $request)
+    public function resetPasswordUpdate(UserResetRequest $request)
     {
-        $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:3|confirmed',
-        ]);
-
+        $request->validated();
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function (User $user, string $password) {
