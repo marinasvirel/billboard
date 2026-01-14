@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -55,4 +56,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
     Route::get('user/restore/{id}', [UserController::class, 'restore'])->name('user.restore');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    // Другие маршруты админки
 });

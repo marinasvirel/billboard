@@ -16,6 +16,9 @@
       </a>
       @auth
       <div class="header-links">
+        @if(auth()->check() && auth()->user()->role === 'admin')
+        <a class="header-link" href="{{ route('admin') }}">Админка</a>
+        @endif
         <a class="header-link" href="{{ route('profile') }}">{{ auth()->user()->name }}</a>
         <a class="header-link" href="{{ route('announcement.create') }}">Подать объявление</a>
         <a class="header-link" href="{{ route('logout') }}">Выйти</a>
