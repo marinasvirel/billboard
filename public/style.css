@@ -168,3 +168,24 @@ footer {
   padding: 10px;
   background-color: bisque;
 }
+
+.links-admin-tab {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: var(--brown);
+  padding: 10px;
+  border-radius: 10px 0;
+}
+
+.links-admin-tab:hover {
+  background-color: var(--hover);
+}
+
+.links-admin-tab:focus {
+  background-color: var(--focus);
+}
+
+.active{
+  background-color: var(--focus);
+}

@@ -10,4 +10,14 @@ class AdminController extends Controller
     {
         return view('admin.index');
     }
+
+    public function bearersView()
+    {
+        return view('admin.bearers');
+    }
+
+        public function announcementsView()
+    {
+        return view('admin.announcements');
+    }
 }

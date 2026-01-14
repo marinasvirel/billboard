@@ -1,0 +1,2 @@
+  <a class="links-admin-tab {{ Route::is('bearers*') ? 'active' : 'default' }}" href="{{ route('bearers') }}">Податели</a>
+  <a class="links-admin-tab {{ Route::is('announcements*') ? 'active' : 'default' }}" href="{{ route('announcements') }}">Объявления</a>

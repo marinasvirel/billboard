@@ -60,5 +60,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-    // Другие маршруты админки
+    Route::get('/admin/bearers', [AdminController::class, 'bearersView'])->name('bearers');
+    Route::get('/admin/announcements', [AdminController::class, 'announcementsView'])->name('announcements');
 });
