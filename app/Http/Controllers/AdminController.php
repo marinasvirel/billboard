@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -13,7 +14,8 @@ class AdminController extends Controller
 
     public function bearersView()
     {
-        return view('admin.bearers');
+        $users = User::all();
+        return view('admin.bearers', compact('users'));
     }
 
         public function announcementsView()

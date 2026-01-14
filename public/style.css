@@ -5,6 +5,9 @@
   --dark-brown: #251A0C;
   --hover: #F5891B;
   --focus: #FFA600;
+  --light: #FEFEEE;
+  --dark-grey: #D9D9D9;
+  --light-grey: #F8F8F8;
 }
 
 * {
@@ -170,6 +173,7 @@ footer {
 }
 
 .links-admin-tab {
+  display: inline-block;
   font-size: 16px;
   font-weight: bold;
   color: white;
@@ -186,6 +190,41 @@ footer {
   background-color: var(--focus);
 }
 
-.active{
+.active {
   background-color: var(--focus);
+}
+
+.substrate {
+  background-color: var(--light);
+  color: var(--dark-brown);
+}
+
+.substrate table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.substrate thead {
+  background-color: var(--dark-grey);
+  padding: 10px;
+  font-family: "Roboto-Medium";
+}
+
+.substrate tr {
+  border-bottom: 1px solid var(--dark-grey);
+}
+
+.substrate td {
+  padding: 10px;
+}
+
+.substrate tbody {
+  background-color: var(--light-grey);
+}
+
+.right-td {
+  text-align: center;
+  background-color: var(--brown);
+  color: white;
+  border: 1px white solid;
 }
