@@ -57,6 +57,7 @@ input {
   display: block;
   padding: 10px;
   margin-top: 10px;
+  margin-bottom: 10px;
   border: none;
   border-radius: 4px 4px 0px 0px;
   font-size: 16px;
@@ -227,4 +228,9 @@ footer {
   background-color: var(--brown);
   color: white;
   border: 1px white solid;
+}
+
+.bearer-edit-title {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

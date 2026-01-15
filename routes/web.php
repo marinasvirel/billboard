@@ -62,4 +62,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::get('/admin/bearers', [AdminController::class, 'bearersView'])->name('bearers');
     Route::get('/admin/announcements', [AdminController::class, 'announcementsView'])->name('announcements');
+    Route::get('/admin/bearers/{id}/edit', [AdminController::class, 'bearersEdit'])->name('bearers.edit');
+    Route::post('/admin/bearers/{id}', [AdminController::class, 'bearersUpdate'])->name('bearers.update');
 });

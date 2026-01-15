@@ -18,7 +18,25 @@ class AdminController extends Controller
         return view('admin.bearers', compact('users'));
     }
 
-        public function announcementsView()
+    public function bearersEdit($id)
+    {
+        $bearer = User::findOrFail($id);
+        return view('admin.bearers-update', compact('bearer'));
+    }
+
+    public function bearersUpdate(Request $request, $id)
+    {
+        $bearer = User::findOrFail($id);
+        $validated = $request->validate([
+            'name' => 'min:2',
+            'email' => 'min:2',
+            'role' => 'min:2',
+        ]);
+        $bearer->update($validated);
+        return redirect()->route('admin')->with('message', 'Обновлено!');
+    }
+
+    public function announcementsView()
     {
         return view('admin.announcements');
     }
