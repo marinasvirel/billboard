@@ -23,15 +23,19 @@
           <td>{{ $user->email }}</td>
           <td>{{ $user->role }}</td>
           <td>Бан</td>
-          <td class="right-td">Забанить</td>
           <td class="right-td">
-            <a href="{{ route('bearers.edit', $user->id) }}">
+            <a class="table-link" href="">
+              Забанить
+            </a>
+          </td>
+          <td class="right-td">
+            <a class="table-link" href="{{ route('bearers.edit', $user->id) }}">
               &#9998
             </a>
           </td>
         </tr>
         @empty
-         <p>Данных не найдено</p>
+        <p>Данных не найдено</p>
         @endforelse
       </tbody>
     </table>
