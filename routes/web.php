@@ -11,22 +11,22 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [UserController::class, 'create'])->name('register');
-    Route::post('register', [UserController::class, 'store'])->name('user.store');
-    Route::get('login', [UserController::class, 'login'])->name('login');
-    Route::post('login', [UserController::class, 'authenticate'])->name('user.authenticate');
+    Route::controller(UserController::class)->group(function () {
+        Route::get('register', 'create')->name('register');
+        Route::post('register', 'store')->name('user.store');
+        Route::get('login', 'login')->name('login');
+        Route::post('login', 'authenticate')->name('user.authenticate');
+        Route::post('/forgot-password', 'forgotPasswordStore')->name('password.email');
+        Route::post('/reset-password', 'resetPasswordUpdate')->name('password.update');
+    });
 
     Route::get('/forgot-password', function () {
         return view('user.forgot-password');
     })->name('password.request');
 
-    Route::post('/forgot-password', [UserController::class, 'forgotPasswordStore'])->name('password.email');
-
     Route::get('/reset-password/{token}', function (string $token) {
         return view('user.reset-password', ['token' => $token]);
     })->name('password.reset');
-
-    Route::post('/reset-password', [UserController::class, 'resetPasswordUpdate'])->name('password.update');
 });
 
 Route::middleware('auth')->group(function () {
@@ -48,22 +48,23 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified', 'check.banned'])->group(function () {
-    Route::get('profile', [UserController::class, 'profile'])->name('profile');
+    Route::controller(UserController::class)->group(function () {
+        Route::get('profile', 'profile')->name('profile');
+        Route::get('announcement/create', 'announcementCreate')->name('announcement.create');
+    });
 
-    Route::get('announcement/create', function () {
-        return view('announcement.create');
-    })->name('announcement.create');
-
-    Route::get('user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
-    Route::get('user/restore/{id}', [UserController::class, 'restore'])->name('user.restore');
+    Route::middleware('admin')->prefix('admin')->group(function () {
+        Route::controller(AdminController::class)->group(function () {
+            Route::get('', [AdminController::class, 'index'])->name('admin');
+            Route::get('/bearers', 'bearersView')->name('bearers');
+            Route::get('/announcements', 'announcementsView')->name('announcements');
+            Route::get('/bearers/{id}/edit', 'bearersEdit')->name('bearers.edit');
+            Route::post('/bearers/{id}', 'bearersUpdate')->name('bearers.update');
+            Route::post('/users/{user}/ban', 'ban')->name('admin.ban');
+            Route::post('/users/{user}/unban', 'unban')->name('admin.unban');
+        });
+    });
 });
 
-Route::middleware(['auth', 'admin', 'verified', 'check.banned'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-    Route::get('/admin/bearers', [AdminController::class, 'bearersView'])->name('bearers');
-    Route::get('/admin/announcements', [AdminController::class, 'announcementsView'])->name('announcements');
-    Route::get('/admin/bearers/{id}/edit', [AdminController::class, 'bearersEdit'])->name('bearers.edit');
-    Route::post('/admin/bearers/{id}', [AdminController::class, 'bearersUpdate'])->name('bearers.update');
-    Route::post('/admin/users/{user}/ban', [AdminController::class, 'ban'])->name('admin.ban');
-    Route::post('/admin/users/{user}/unban', [AdminController::class, 'unban'])->name('admin.unban');
-});
+// Route::get('user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
+// Route::get('user/restore/{id}', [UserController::class, 'restore'])->name('user.restore');
