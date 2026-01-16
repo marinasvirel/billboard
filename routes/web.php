@@ -55,7 +55,7 @@ Route::middleware(['auth', 'verified', 'check.banned'])->group(function () {
 
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::controller(AdminController::class)->group(function () {
-            Route::get('', [AdminController::class, 'index'])->name('admin');
+            Route::get('/', 'index')->name('admin');
             Route::get('/bearers', 'bearersView')->name('bearers');
             Route::get('/announcements', 'announcementsView')->name('announcements');
             Route::get('/bearers/{id}/edit', 'bearersEdit')->name('bearers.edit');
