@@ -22,11 +22,19 @@
           <td>{{ $user->name }}</td>
           <td>{{ $user->email }}</td>
           <td>{{ $user->role }}</td>
-          <td>Бан</td>
+          <td>{{ $user->is_banned }}</td>
           <td class="right-td">
-            <a class="table-link" href="">
-              Забанить
-            </a>
+            @if(!$user->is_banned)
+            <form class="table-form" action="{{ route('admin.ban', $user) }}" method="POST">
+              @csrf
+              <button type="submit">Забанить</button>
+            </form>
+            @else
+            <form class="table-form" action="{{ route('admin.unban', $user) }}" method="POST">
+              @csrf
+              <button type="submit">Разбанить</button>
+            </form>
+            @endif
           </td>
           <td class="right-td">
             <a class="table-link" href="{{ route('bearers.edit', $user->id) }}">

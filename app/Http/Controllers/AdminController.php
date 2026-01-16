@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -34,6 +35,20 @@ class AdminController extends Controller
         ]);
         $bearer->update($validated);
         return redirect()->route('admin')->with('message', 'Обновлено!');
+    }
+    public function ban(User $user)
+    {
+        if ($user->id === Auth::id()) {
+            return back()->with('message', 'Вы не можете забанить самого себя!');
+        }
+        $user->update(['is_banned' => true]);
+        return back()->with('message', "Пользователь {$user->name} заблокирован.");
+    }
+
+    public function unban(User $user)
+    {
+        $user->update(['is_banned' => false]);
+        return back()->with('message', "Пользователь {$user->name} разблокирован.");
     }
 
     public function announcementsView()

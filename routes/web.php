@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'check.banned'])->group(function () {
     Route::get('profile', [UserController::class, 'profile'])->name('profile');
 
     Route::get('announcement/create', function () {
@@ -58,10 +58,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('user/restore/{id}', [UserController::class, 'restore'])->name('user.restore');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'admin', 'verified', 'check.banned'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::get('/admin/bearers', [AdminController::class, 'bearersView'])->name('bearers');
     Route::get('/admin/announcements', [AdminController::class, 'announcementsView'])->name('announcements');
     Route::get('/admin/bearers/{id}/edit', [AdminController::class, 'bearersEdit'])->name('bearers.edit');
     Route::post('/admin/bearers/{id}', [AdminController::class, 'bearersUpdate'])->name('bearers.update');
+    Route::post('/admin/users/{user}/ban', [AdminController::class, 'ban'])->name('admin.ban');
+    Route::post('/admin/users/{user}/unban', [AdminController::class, 'unban'])->name('admin.unban');
 });
