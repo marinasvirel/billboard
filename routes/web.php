@@ -56,12 +56,16 @@ Route::middleware(['auth', 'verified', 'check.banned'])->group(function () {
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::controller(AdminController::class)->group(function () {
             Route::get('/', 'index')->name('admin');
-            Route::get('/bearers', 'bearersView')->name('bearers');
-            Route::get('/announcements', 'announcementsView')->name('announcements');
-            Route::get('/bearers/{id}/edit', 'bearersEdit')->name('bearers.edit');
-            Route::post('/bearers/{id}', 'bearersUpdate')->name('bearers.update');
-            Route::post('/users/{user}/ban', 'ban')->name('admin.ban');
-            Route::post('/users/{user}/unban', 'unban')->name('admin.unban');
+            Route::prefix('bearers')->group(function () {
+                Route::get('/', 'bearersView')->name('bearers');
+                Route::get('/{id}/edit', 'bearersEdit')->name('bearers.edit');
+                Route::post('/{id}', 'bearersUpdate')->name('bearers.update');
+                Route::post('/{user}/ban', 'ban')->name('admin.ban');
+                Route::post('/{user}/unban', 'unban')->name('admin.unban');
+            });
+            Route::prefix('announcements')->group(function () {
+                Route::get('/', 'announcementsView')->name('announcements');
+            });
         });
     });
 });
