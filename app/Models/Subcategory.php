@@ -12,7 +12,7 @@ class Subcategory extends Model
     /** @use HasFactory<\Database\Factories\SubcategoryFactory> */
     use HasFactory;
 
-    protected $fillable = ['name', 'category_id'];
+    protected $fillable = ['category_id', 'name'];
 
     //Обратная связь: подкатегория принадлежит определенной категории.
     public function category(): BelongsTo

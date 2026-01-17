@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Subcategory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +19,11 @@ class AnnouncementFactory extends Factory
     public function definition(): array
     {
         return [
-            'subcategory_id' => Subcategory::inRandomOrder()->first()->id,
+            'user_id' => User::query()->inRandomOrder()->value('id'),
+            'subcategory_id' => Subcategory::query()->inRandomOrder()->value('id'),
             'title' => fake()->realText(20),
             'text' => fake()->realText(200),
+            'action' => fake()->randomElement(['Продажа', 'Покупка', 'Аренда',]),
         ];
     }
 }

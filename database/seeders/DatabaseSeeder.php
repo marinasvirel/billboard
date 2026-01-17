@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         $this->call(SubcategorySeeder::class);
 
-        Announcement::factory(15)->create();
+        User::factory(3)->create();
+        Announcement::factory(30)->create();
     }
 }

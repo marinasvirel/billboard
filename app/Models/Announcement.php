@@ -12,7 +12,7 @@ class Announcement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'user_id',
         'subcategory_id',
         'title',
         'text',
@@ -22,5 +22,10 @@ class Announcement extends Model
     public function subcategory(): BelongsTo
     {
         return $this->belongsTo(Subcategory::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
