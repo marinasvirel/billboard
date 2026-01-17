@@ -28,10 +28,10 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'is_banned',
     ];
 
-    public function announcements(): HasMany
-    {
-        return $this->hasMany(Announcement::class);
-    }
+    // public function announcements(): HasMany
+    // {
+    //     return $this->hasMany(Announcement::class);
+    // }
 
     /**
      * The attributes that should be hidden for serialization.

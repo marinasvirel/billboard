@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\UserController;
+use App\Models\Announcement;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -10,8 +13,15 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     // $categories = Category::all();
     $categories = Category::with('subcategories.announcements')->get();
-    return view('home', compact('categories'));
+    $users = User::all();
+    
+    return view('home', [
+        'categories' => $categories,
+        'users' => $users,
+    ]);
 })->name('home');
+
+Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('show');
 
 Route::middleware('guest')->group(function () {
     Route::controller(UserController::class)->group(function () {

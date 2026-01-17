@@ -2,6 +2,7 @@
 @section('title', 'Доска объявлений | Главная')
 @section('content')
 {{--@dump($categories)--}}
+@dump($announcement->user->name)
 <h1>Доска объявлений</h1>
 @forelse($categories as $category)
 <h2>{{ $category->name }}</h2>
