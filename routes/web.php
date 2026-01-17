@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    return view('home');
+    $categories = Category::all();
+    return view('home', compact('categories'));
 })->name('home');
 
 Route::middleware('guest')->group(function () {
