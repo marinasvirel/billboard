@@ -8,7 +8,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    $categories = Category::all();
+    // $categories = Category::all();
+    $categories = Category::with('subcategories')->get();
     return view('home', compact('categories'));
 })->name('home');
 
