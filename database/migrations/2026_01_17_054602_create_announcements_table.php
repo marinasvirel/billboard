@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('title');
             $table->text('text');
             $table->string('action')->default('Продажа');
+            $table->boolean('is_publish')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
