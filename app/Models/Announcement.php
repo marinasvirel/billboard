@@ -18,6 +18,7 @@ class Announcement extends Model
         'title',
         'text',
         'action',
+        'is_publish',
     ];
 
     public function subcategory(): BelongsTo
