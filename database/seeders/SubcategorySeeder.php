@@ -18,7 +18,7 @@ class SubcategorySeeder extends Seeder
                 ['name' => 'Жилая'],
                 ['name' => 'Коммерческая'],
                 ['name' => 'Земельные участки'],
-                ['name' => 'Другие'],
+                ['name' => 'Другое'],
             ]);
 
         Category::firstOrCreate(['name' => 'Животные'])
@@ -27,7 +27,7 @@ class SubcategorySeeder extends Seeder
                 ['name' => 'Собаки'],
                 ['name' => 'Птицы'],
                 ['name' => 'Рыбы'],
-                ['name' => 'Другие'],
+                ['name' => 'Другое'],
             ]);
 
         Category::firstOrCreate(['name' => 'Растения'])
@@ -35,7 +35,7 @@ class SubcategorySeeder extends Seeder
                 ['name' => 'Домашние'],
                 ['name' => 'Лесные'],
                 ['name' => 'Садовые'],
-                ['name' => 'Другие'],
+                ['name' => 'Другое'],
             ]);
 
         Category::firstOrCreate(['name' => 'Транспорт'])
@@ -43,7 +43,7 @@ class SubcategorySeeder extends Seeder
                 ['name' => 'Грузовой'],
                 ['name' => 'Легковой'],
                 ['name' => 'Водяной'],
-                ['name' => 'Другой'],
+                ['name' => 'Другое'],
             ]);
 
         Category::firstOrCreate(['name' => 'Оборудование'])
