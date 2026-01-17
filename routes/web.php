@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
     // $categories = Category::all();
-    $categories = Category::with('subcategories')->get();
+    $categories = Category::with('subcategories.announcements')->get();
     return view('home', compact('categories'));
 })->name('home');
 

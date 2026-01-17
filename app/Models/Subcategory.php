@@ -20,9 +20,9 @@ class Subcategory extends Model
         return $this->belongsTo(Category::class);
     }
 
-   //Связь с объявлениями: у подкатегории может быть много объявлений.
-    // public function products(): HasMany
-    // {
-    //     return $this->hasMany(Product::class);
-    // }
+    //Связь с объявлениями: у подкатегории может быть много объявлений.
+    public function announcements(): HasMany
+    {
+        return $this->hasMany(Announcement::class);
+    }
 }

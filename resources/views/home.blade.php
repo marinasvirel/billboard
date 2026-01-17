@@ -11,6 +11,12 @@
   <li>{{ $subcategory->name }}</li>
   @endforeach
 </ul>
+@forelse($subcategory->announcements as $announcement)
+<h3>{{ $announcement->title }}</h3>
+<p>{{ $announcement->text }}</p>
+@empty
+<p>объявлений не найдено</p>
+@endforelse
 @else
 <p>В этой категории пока нет подкатегорий.</p>
 @endif
