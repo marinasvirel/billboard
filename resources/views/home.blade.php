@@ -1,26 +1,21 @@
 @extends('layout')
 @section('title', 'Доска объявлений | Главная')
 @section('content')
+{{--@dump($categories)--}}
 <h1>Доска объявлений</h1>
 @forelse($categories as $category)
 <h2>{{ $category->name }}</h2>
-<div>{!! $category->svg !!}</div>
-@if($category->subcategories->isNotEmpty())
-<ul>
-  @foreach($category->subcategories as $subcategory)
-  <li>{{ $subcategory->name }}</li>
-  @endforeach
-</ul>
+@forelse($category->subcategories as $subcategory)
+<h3>{{ $subcategory->name }}</h3>
 @forelse($subcategory->announcements as $announcement)
-<h3>{{ $announcement->title }}</h3>
-<p>{{ $announcement->text }}</p>
+<h4>{{ $announcement->title  }}</h4>
 @empty
-<p>объявлений не найдено</p>
+<p>Нет объявлений</p>
 @endforelse
-@else
-<p>В этой категории пока нет подкатегорий.</p>
-@endif
 @empty
-<p>Данных не найдено</p>
+<p>Нет субкатегорий</p>
+@endforelse
+@empty
+<p>Нет категорий</p>
 @endforelse
 @endsection
