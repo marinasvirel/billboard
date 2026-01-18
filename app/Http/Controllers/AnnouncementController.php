@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 
 class AnnouncementController extends Controller
 {
-    public function show($id)
+    public function show(Announcement $announcement)
     {
-        $announcement = Announcement::find($id);
         return view('announcement.show', compact('announcement'));
     }
 }

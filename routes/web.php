@@ -21,7 +21,7 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('show');
+Route::get('/announcement/{announcement}', [AnnouncementController::class, 'show'])->name('announcements.show');
 
 Route::middleware('guest')->group(function () {
     Route::controller(UserController::class)->group(function () {
