@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AnnouncementController extends Controller
 {
@@ -11,4 +12,22 @@ class AnnouncementController extends Controller
     {
         return view('announcement.show', compact('announcement'));
     }
+
+    // public function store(StoreAnnouncementRequest $request)
+    // {
+    //     $data = $request->validated();
+    //     $slug = Str::slug($request->title);
+    //     $originalSlug = $slug;
+    //     $count = 1;
+    //     while (Announcement::where('slug', $slug)->exists()) {
+    //         $slug = $originalSlug . '-' . $count++;
+    //     }
+
+    //     $data['slug'] = $slug;
+
+
+    //     Announcement::create($data);
+
+    //     return redirect()->route('announcements.index');
+    // }
 }
