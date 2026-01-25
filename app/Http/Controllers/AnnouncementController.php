@@ -13,6 +13,11 @@ class AnnouncementController extends Controller
         return view('announcement.show', compact('announcement'));
     }
 
+    public function create()
+    {
+        return view('announcement.create');
+    }
+
     // public function store(StoreAnnouncementRequest $request)
     // {
     //     $data = $request->validated();

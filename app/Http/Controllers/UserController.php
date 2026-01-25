@@ -83,11 +83,6 @@ class UserController extends Controller
             : back()->withErrors(['email' => [__($status)]]);
     }
 
-    public function announcementCreate()
-    {
-        return view('announcement.create');
-    }
-
     public function delete($id)
     {
         $user = User::find($id);

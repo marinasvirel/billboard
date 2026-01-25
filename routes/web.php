@@ -63,7 +63,10 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified', 'check.banned'])->group(function () {
     Route::controller(UserController::class)->group(function () {
         Route::get('profile', 'profile')->name('profile');
-        Route::get('announcement/create', 'announcementCreate')->name('announcement.create');
+    });
+
+    Route::controller(AnnouncementController::class)->group(function () {
+        Route::get('create', 'create')->name('announcement.create');
     });
 
     Route::middleware('admin')->prefix('admin')->group(function () {
