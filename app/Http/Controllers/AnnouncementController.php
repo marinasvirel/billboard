@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -16,6 +17,11 @@ class AnnouncementController extends Controller
     public function create()
     {
         return view('announcement.create');
+    }
+
+    public function store(Request $request)
+    {
+        dump($request->all());
     }
 
     // public function store(StoreAnnouncementRequest $request)

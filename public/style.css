@@ -54,7 +54,10 @@ body::before {
   min-height: 100vh;
 }
 
-input {
+input,
+textarea,
+select {
+  font-family: "Roboto-Regular";
   display: block;
   padding: 10px;
   border: none;
@@ -63,11 +66,13 @@ input {
   color: var(--brown);
 }
 
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: #7c4a119a;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   outline: 1px var(--focus) solid;
 }
 
@@ -110,7 +115,9 @@ button,
 
 .link-page,
 input,
-.error-box {
+.error-box,
+textarea,
+select {
   width: 100%;
   max-width: 400px;
 }
