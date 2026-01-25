@@ -5,34 +5,31 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\Subcategory;
+use Illuminate\Support\Facades\Log;
 
 class CreateAnnouncement extends Component
 {
-    public $categories;
-    public $subcategories = [];
+    // Поля формы (только простые типы данных)
+    public string $title;
+    public string $text;
+    public $action = null;
+    public $category_id = null;
+    public $subcategory_id = null;
 
-    public $selectedCategory = null;
-    public $selectedSubcategory = null;
-
-    public function mount()
+    public function save()
     {
-        // Загружаем все категории при инициализации
-        $this->categories = Category::all();
-    }
-
-    // Метод запускается автоматически при изменении $selectedCategory
-    public function updatedSelectedCategory($categoryId)
-    {
-        if (!empty($categoryId)) {
-            $this->subcategories = Subcategory::where('category_id', $categoryId)->get();
-        } else {
-            $this->subcategories = [];
-        }
-        $this->selectedSubcategory = null; // Сбрасываем подкатегорию
+        Log::info($this->all());
     }
 
     public function render()
     {
-        return view('livewire.create-announcement');
+        $categories = Category::all();
+        $subcategories = $this->category_id
+            ? Subcategory::where('category_id', $this->category_id)->get()
+            : [];
+        return view('livewire.create-announcement', [
+            'categories' => $categories,
+            'subcategories' => $subcategories,
+        ]);
     }
 }

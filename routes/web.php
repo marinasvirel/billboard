@@ -67,7 +67,6 @@ Route::middleware(['auth', 'verified', 'check.banned'])->group(function () {
 
     Route::controller(AnnouncementController::class)->group(function () {
         Route::get('create', 'create')->name('announcement.create');
-        Route::post('create', 'store')->name('announcement.store');
     });
 
     Route::middleware('admin')->prefix('admin')->group(function () {
