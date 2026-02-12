@@ -19,10 +19,10 @@ class AnnouncementController extends Controller
         return view('announcement.create');
     }
 
-    public function store(Request $request)
-    {
-        dump($request->all());
-    }
+    // public function store(Request $request)
+    // {
+    //     dump($request->all());
+    // }
 
     // public function store(StoreAnnouncementRequest $request)
     // {

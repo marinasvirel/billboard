@@ -2,34 +2,57 @@
 
 namespace App\Livewire;
 
+use App\Models\Announcement;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\Validate;
 
 class CreateAnnouncement extends Component
 {
     // Поля формы (только простые типы данных)
     public $user_id;
-    public $category_id = null;
-    public $subcategory_id = null;
-    public $slug;
-    public $title;
-    public $text;
-    public $action;
-    public $is_publish;
 
-    public function mount()
+    #[Validate('required|exists:categories,id')]
+    public $category_id = null;
+
+    #[Validate('nullable|exists:subcategories,id')]
+    public $subcategory_id = null;
+
+    #[Validate('required|min:3')]
+    public $title;
+
+    #[Validate('required|min:10')]
+    public $text;
+
+    #[Validate('required')]
+    public $action;
+
+    public $is_publish = false;
+
+    public function messages()
     {
-        $this->user_id = Auth::id();
-        $this->is_publish = false;
+        return [
+            'title.required' => 'Пожалуйста, укажите заголовок объявления.',
+            'title.min' => 'Заголовок слишком короткий (минимум :min символа).',
+            'text.required' => 'Не забудьте написать текст объявления.',
+            'text.min' => 'Текст должен быть содержательным (от :min символов).',
+            'category_id.required' => 'Выберите категорию из списка.',
+            'action.required' => 'Укажите тип действия (продажа, покупка и т.д.).',
+        ];
     }
 
     public function save()
     {
-        Log::info($this->all());
+
+        $validated = $this->validate();
+        $validated['user_id'] = Auth::id();
+        $announcement = Announcement::create($validated);
+        session()->flash('message', 'Запись добавлена! ID: ' . $announcement->id);
     }
+
 
     public function render()
     {

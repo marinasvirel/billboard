@@ -35,9 +35,16 @@ class Announcement extends Model
     {
         parent::boot();
         static::creating(function ($announcement) {
-            if (empty($announcement->slug)) {
-                $announcement->slug = Str::slug($announcement->title);
+            $slug = Str::slug($announcement->title);
+            $originalSlug = $slug;
+            $count = 1;
+
+            // Проверяем уникальность слага в цикле
+            while (static::where('slug', $slug)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
             }
+
+            $announcement->slug = $slug;
         });
     }
 
