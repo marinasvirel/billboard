@@ -47,7 +47,7 @@ class UserController extends Controller
         $credentials = $request->validated();
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('announcement/create');
+            return redirect('create');
         }
         return back()->withErrors([
             'email' => 'Предоставленные учетные данные не соответствуют нашим записям.',

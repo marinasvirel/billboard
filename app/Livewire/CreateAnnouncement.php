@@ -5,16 +5,26 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\Subcategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class CreateAnnouncement extends Component
 {
     // Поля формы (только простые типы данных)
-    public string $title;
-    public string $text;
-    public $action = null;
+    public $user_id;
     public $category_id = null;
     public $subcategory_id = null;
+    public $slug;
+    public $title;
+    public $text;
+    public $action;
+    public $is_publish;
+
+    public function mount()
+    {
+        $this->user_id = Auth::id();
+        $this->is_publish = false;
+    }
 
     public function save()
     {
