@@ -8,6 +8,8 @@
   --light: #FEFEEE;
   --dark-grey: #D9D9D9;
   --light-grey: #F8F8F8;
+  --yellow: #FFFFD8;
+  --beige: #FEFEEE;
 }
 
 * {
@@ -42,7 +44,7 @@ body::before {
 }
 
 .container {
-  max-width: 1236px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 60px;
   box-sizing: content-box;
@@ -82,6 +84,10 @@ button {
 
 a {
   text-decoration: none;
+}
+
+ul {
+  list-style: none;
 }
 
 .header-link {
@@ -161,10 +167,15 @@ main {
   background-color: red;
 }
 
+h1,
+h2,
+h3 {
+  font-family: "AdventPro-Bold";
+}
+
 h1 {
   margin-bottom: 30px;
   font-size: 36px;
-  font-family: "AdventPro-Bold";
 }
 
 footer {
@@ -271,4 +282,82 @@ footer {
 .bearer-edit-title {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.announcement-categories {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-bottom: 20px;
+}
+
+.announcement-category {
+  flex-shrink: 0;
+  padding-top: 20px;
+  width: 190px;
+  height: 192px;
+  text-align: center;
+  margin-bottom: 10px;
+  background-color: var(--yellow);
+  color: var(--brown);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.announcement-category svg path,
+.announcement-category-title,
+.announcement-subcategory {
+  transition: 0.5s;
+}
+
+.announcement-category:hover svg path {
+  fill: var(--hover);
+}
+
+.announcement-category:hover {
+  color: var(--hover);
+}
+
+.announcement-category.is-active {
+  color: var(--focus);
+}
+
+.announcement-categories li {
+  order: 2;
+}
+
+.announcement-categories li.is-active {
+  order: 1;
+}
+
+.announcement-category.is-active svg path {
+  fill: var(--focus);
+}
+
+.announcement-category-title {
+  font-size: 24px;
+  margin-top: 15px;
+}
+
+.announcement-subcategories {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.announcement-subcategory {
+  background-color: var(--yellow);
+  color: var(--brown);
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.announcement-subcategory:hover {
+  color: var(--hover);
+}
+
+.announcement-subcategory-title {
+  font-size: 20px;
 }

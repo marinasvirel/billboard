@@ -3,22 +3,12 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\UserController;
-use App\Models\Announcement;
-use App\Models\Category;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    // $categories = Category::all();
-    $categories = Category::with('subcategories.announcements')->get();
-    $users = User::all();
-    
-    return view('home', [
-        'categories' => $categories,
-        'users' => $users,
-    ]);
+    return view('home');
 })->name('home');
 
 Route::get('/announcement/{announcement}', [AnnouncementController::class, 'show'])->name('announcements.show');

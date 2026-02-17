@@ -3,8 +3,9 @@
 @section('content')
 {{--@dump($categories)--}}
 <h1>Доска объявлений</h1>
-@forelse($categories as $category)
-<h2>{{ $category->name }}</h2>
+@livewire('read-announcement')
+{{-- @forelse($categories as $category)
+  <h2>{{ $category->name }}</h2>
 @forelse($category->subcategories as $subcategory)
 <h3>{{ $subcategory->name }}</h3>
 @forelse($subcategory->announcements as $announcement)
@@ -20,5 +21,6 @@
 @endforelse
 @empty
 <p>Нет категорий</p>
-@endforelse
+@endforelse --}}
+
 @endsection
