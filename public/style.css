@@ -169,7 +169,8 @@ main {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: "AdventPro-Bold";
 }
 
@@ -183,7 +184,8 @@ footer {
 }
 
 .form-message,
-.alert-message {
+.alert-message,
+.announcement-null {
   font-family: "Unbounded-Regular";
   color: var(--dark-brown);
   padding: 10px;
@@ -319,7 +321,8 @@ footer {
   color: var(--hover);
 }
 
-.announcement-category.is-active {
+.announcement-category.is-active,
+.announcement-subcategory.is-active {
   color: var(--focus);
 }
 
@@ -344,6 +347,7 @@ footer {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
 .announcement-subcategory {
@@ -360,4 +364,38 @@ footer {
 
 .announcement-subcategory-title {
   font-size: 20px;
+}
+
+.announcements-area {
+  background-color: var(--beige);
+  color: var(--brown);
+}
+
+.announcement-item {
+  display: flex;
+  border-top: 2px grey dashed;
+}
+
+.announcement-img-box {
+  background-image: url("img/camera.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+  width: 190px;
+  height: 159px;
+  background-color: #F3F3F3;
+}
+
+.announcement-text-box {
+  padding: 10px;
+}
+
+.announcement-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.announcement-text {
+  line-height: 125%;
+  font-size: 14px;
 }
