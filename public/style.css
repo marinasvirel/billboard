@@ -322,7 +322,8 @@ footer {
 }
 
 .announcement-category.is-active,
-.announcement-subcategory.is-active {
+.announcement-subcategory.is-active,
+.announcement-action.is-active {
   color: var(--focus);
 }
 
@@ -391,20 +392,20 @@ footer {
 }
 
 .announcement-title {
-  font-size: 16px;
+  font-size: 20px;
   margin-bottom: 10px;
 }
 
 .announcement-text {
   line-height: 125%;
-  font-size: 14px;
+  font-size: 16px;
 }
 
-.announcements-actions{
+.announcements-actions {
   display: flex;
 }
 
-.announcement-action{
+.announcement-action {
   background-color: #D9D9D9;
   border: 1px #C18C4E solid;
   color: #C18C4E;
