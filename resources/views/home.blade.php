@@ -4,23 +4,4 @@
 {{--@dump($categories)--}}
 <h1>Доска объявлений</h1>
 @livewire('read-announcement')
-{{-- @forelse($categories as $category)
-  <h2>{{ $category->name }}</h2>
-@forelse($category->subcategories as $subcategory)
-<h3>{{ $subcategory->name }}</h3>
-@forelse($subcategory->announcements as $announcement)
-<h4>{{ $announcement->title  }}</h4>
-<a href="{{ route('announcements.show', $announcement) }}">
-  {{ $announcement->text }}
-</a>
-@empty
-<p>Нет объявлений</p>
-@endforelse
-@empty
-<p>Нет субкатегорий</p>
-@endforelse
-@empty
-<p>Нет категорий</p>
-@endforelse --}}
-
 @endsection

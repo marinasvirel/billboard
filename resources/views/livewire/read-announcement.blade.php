@@ -14,7 +14,7 @@
     @if($activeCategoryId === $category->id)
     <ul class="announcement-subcategories" wire:key="content-{{ $category->id }}">
         @foreach($category->subcategories as $subcategory)
-        <li class="announcement-subcategory {{ $activeSubcategoryId === $subcategory->id ? 'is-active' : '' }}" wire:key="sub-{{ $subcategory->id }}" wire:click="selectSubcategory({{ $subcategory->id }})" >
+        <li class="announcement-subcategory {{ $activeSubcategoryId === $subcategory->id ? 'is-active' : '' }}" wire:key="sub-{{ $subcategory->id }}" wire:click="selectSubcategory({{ $subcategory->id }})">
             <h3 class="announcement-subcategory-title">{{ $subcategory->name }}</h3>
         </li>
         @endforeach
@@ -24,7 +24,23 @@
 
     <div wire:key="announcements-area" class="announcements-area">
         @if($selectedSubcategory)
-        @forelse($selectedSubcategory->announcements as $announcement)
+
+        <div class="announcements-actions">
+            @if($selectedSubcategory->announcements->isNotEmpty())
+            <div wire:click="setFilter(null)"
+                class="announcement-action {{ is_null($filterAction) ? 'is-active' : '' }}">
+                Все
+            </div>
+            @endif
+            @foreach($selectedSubcategory->announcements->pluck('action')->unique() as $action)
+            <div wire:click="setFilter('{{ $action }}')"
+                class="announcement-action {{ $filterAction === $action ? 'is-active' : '' }}">
+                {{ $action }}
+            </div>
+            @endforeach
+        </div>
+
+        @forelse($announcements as $announcement)
         <a href="{{ route('announcements.show', $announcement) }}" target="_blank">
             <div wire:key="ann-{{ $announcement->id }}" class="announcement-item">
                 <div class="announcement-img-box"></div>
