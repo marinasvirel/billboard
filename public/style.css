@@ -74,7 +74,8 @@ textarea::placeholder {
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   outline: 1px var(--focus) solid;
 }
 
@@ -124,6 +125,7 @@ input,
 .error-box,
 textarea,
 select {
+  display: block;
   width: 100%;
   max-width: 400px;
 }
@@ -413,4 +415,10 @@ footer {
   font-weight: bold;
   padding: 15px;
   cursor: pointer;
+}
+
+.create-label {
+  display: block;
+  font-style: italic;
+  margin-bottom: 5px;
 }
