@@ -7,16 +7,20 @@ use Livewire\Component;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Log;
 
 class CreateAnnouncement extends Component
 {
+    use WithFileUploads;
+
     public $user_id;
     public $category_id = null;
     public $subcategory_id = null;
     public $title;
     public $text;
     public $action;
+    public $images;
     public $is_publish = false;
 
     public function messages()
@@ -40,13 +44,32 @@ class CreateAnnouncement extends Component
             'action' => ['required'],
             'category_id' => ['required'],
             'subcategory_id' => ['required'],
+            'images.*' => 'image|max:2048',
+            'images' => 'nullable|array|max:6',
         ]);
-        $validated['user_id'] = Auth::id();
-        $announcement = Announcement::create($validated);
-        session()->flash('message', 'Запись добавлена! ID: ' . $announcement->id);
-        $this->reset('title', 'text', 'action', 'category_id','subcategory_id');
-    }
 
+        $announcement = Announcement::create([
+            'user_id' => Auth::id(),
+            'title' => $this->title,
+            'text' => $this->text,
+            'action' => $this->action,
+            'category_id' => $this->category_id,
+            'subcategory_id' => $this->subcategory_id,
+        ]);
+
+        if ($this->images) {
+            foreach ($this->images as $index => $image) {
+                $path = $image->store('announcements', 'public');
+                $announcement->images()->create([
+                    'path' => $path,
+                    'is_preview' => ($index === 0),
+                ]);
+            }
+        }
+
+        session()->flash('message', 'Объявление создано!');
+        $this->reset(['title', 'text', 'action', 'category_id', 'subcategory_id', 'images']);
+    }
 
     public function render()
     {

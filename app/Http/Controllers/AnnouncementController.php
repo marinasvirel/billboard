@@ -11,6 +11,7 @@ class AnnouncementController extends Controller
 {
     public function show(Announcement $announcement)
     {
+        $announcement->load('images');
         return view('announcement.show', compact('announcement'));
     }
 
@@ -18,27 +19,4 @@ class AnnouncementController extends Controller
     {
         return view('announcement.create');
     }
-
-    // public function store(Request $request)
-    // {
-    //     dump($request->all());
-    // }
-
-    // public function store(StoreAnnouncementRequest $request)
-    // {
-    //     $data = $request->validated();
-    //     $slug = Str::slug($request->title);
-    //     $originalSlug = $slug;
-    //     $count = 1;
-    //     while (Announcement::where('slug', $slug)->exists()) {
-    //         $slug = $originalSlug . '-' . $count++;
-    //     }
-
-    //     $data['slug'] = $slug;
-
-
-    //     Announcement::create($data);
-
-    //     return redirect()->route('announcements.index');
-    // }
 }

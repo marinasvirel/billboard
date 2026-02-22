@@ -43,7 +43,15 @@
         @forelse($announcements as $announcement)
         <a href="{{ route('announcements.show', $announcement) }}" target="_blank">
             <div wire:key="ann-{{ $announcement->id }}" class="announcement-item">
-                <div class="announcement-img-box"></div>
+                <div class="announcement-img-box">
+                    @php
+                    $preview = $announcement->images->where('is_preview', true)->first()
+                    ?? $announcement->images->first();
+                    @endphp
+                    @if($preview)
+                    <img src="{{ asset('storage/' . $preview->path) }}" alt="preview">
+                    @endif
+                </div>
                 <div class="announcement-text-box">
                     <h4 class="announcement-title">{{ $announcement->title }}</h4>
                     <p class="announcement-text">{{ $announcement->text }}</p>
