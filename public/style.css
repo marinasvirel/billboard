@@ -44,7 +44,7 @@ body::before {
 }
 
 .container {
-  max-width: 1240px;
+  max-width: 1260px;
   margin: 0 auto;
   padding: 0 60px;
   box-sizing: content-box;
@@ -390,7 +390,7 @@ footer {
   object-fit: cover;
 }
 
-.announcement-img-box img{
+.announcement-img-box img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -428,4 +428,27 @@ footer {
   display: block;
   font-style: italic;
   margin-bottom: 5px;
+}
+
+.announcement-photos-list {
+  display: flex;
+  margin-bottom: 30px;
+  overflow: auto;
+}
+
+.announcement-photos-item {
+  flex: 1;
+  aspect-ratio: 1 / 1; 
+  max-width: 210px;
+  min-width: 100px;
+  height: auto;
+  overflow: hidden;
+}
+
+.announcement-photos-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
