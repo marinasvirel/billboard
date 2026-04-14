@@ -20,7 +20,7 @@
         @forelse($users as $user)
         <tr>
           <td>{{ $user->name }}</td>
-          <td>{{ $user->email }}</td>
+          <td class="bearers-email-td">{{ $user->email }}</td>
           <td>{{ $user->role }}</td>
           <td>{{ $user->is_banned }}</td>
           <td class="right-td">

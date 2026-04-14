@@ -9,7 +9,7 @@
   </div>
   @else
   <p class="form-message">Введите свой e-mail для получения ссылки на сброс пароля</p>
-  <form action="{{ route('password.email') }}" method="post">
+  <form action="{{ route('password.email') }}" method="post" class="create-form">
     @csrf
     <div class="form-item">
       <input type="text" name="email" value="{{ old('email') }}" placeholder="E-mail">

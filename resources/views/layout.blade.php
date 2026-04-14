@@ -12,7 +12,7 @@
   <div class="container wrapper">
     <header>
       <a href="{{ route('home') }}">
-        <img src="{{ asset('img/logo.png') }}" alt="logo">
+        <img class="logo" src="{{ asset('img/logo.png') }}" alt="logo">
       </a>
       @auth
       <div class="header-links">

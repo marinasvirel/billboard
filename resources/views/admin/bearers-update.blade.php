@@ -5,7 +5,7 @@
   <h1>Редактирование подателя</h1>
   <x-links-admin />
   <h2 class="bearer-edit-title">{{ $bearer->name }}</h2>
-  <form action="{{ route('bearers.update', $bearer->id) }}" method="post">
+  <form action="{{ route('bearers.update', $bearer->id) }}" method="post" class="create-form">
     @csrf
     <div class="form-item">
       <label for="name">Имя</label>

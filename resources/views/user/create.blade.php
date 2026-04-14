@@ -3,7 +3,7 @@
 @section('content')
 <section class="register">
   <h1>Регистрация</h1>
-  <form action="{{ route('user.store') }}" method="post">
+  <form action="{{ route('user.store') }}" method="post" class="create-form">
     @csrf
     <div class="form-item">
       <input type="text" name="name" value="{{ old('name') }}" placeholder="Имя" autofocus>

@@ -3,7 +3,7 @@
 @section('content')
 <section class="login">
   <h1>Авторизация</h1>
-  <form action="{{ route('user.authenticate') }}" method="post">
+  <form action="{{ route('user.authenticate') }}" method="post" class="create-form">
     @csrf
     <div class="form-item">
       <input type="text" name="email" value="{{ old('email') }}" placeholder="E-mail">

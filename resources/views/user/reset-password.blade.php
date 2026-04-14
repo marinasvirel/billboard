@@ -3,7 +3,7 @@
 @section('content')
 <section class="reset">
   <h1>Новый пароль</h1>
-  <form action="{{ route('password.update') }}" method="post">
+  <form action="{{ route('password.update') }}" method="post" class="create-form">
     @csrf
     <div class="form-item">
       <input type="hidden" name="token" value="{{ $token }}">
