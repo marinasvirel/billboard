@@ -48,6 +48,11 @@ class Announcement extends Model
         });
     }
 
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function subcategory(): BelongsTo
     {
         return $this->belongsTo(Subcategory::class);

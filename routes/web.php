@@ -71,10 +71,9 @@ Route::middleware(['auth', 'verified', 'check.banned'])->group(function () {
             });
             Route::prefix('announcements')->group(function () {
                 Route::get('/', 'announcementsView')->name('announcements');
+                Route::patch('/{announcement}/publish', 'publish')->name('admin.announcements.publish');
+                Route::patch('/{announcement}/reject', 'reject')->name('admin.announcements.reject');
             });
         });
     });
 });
-
-// Route::get('user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
-// Route::get('user/restore/{id}', [UserController::class, 'restore'])->name('user.restore');

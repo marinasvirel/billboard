@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,22 @@ class AdminController extends Controller
 
     public function announcementsView()
     {
-        return view('admin.announcements');
+        $announcements = Announcement::with(['user', 'category', 'subcategory', 'images'])
+            ->where('is_publish', false) // обычно нужны только опубликованные
+            ->get();
+        return view('admin.announcements', compact('announcements'));
+    }
+
+    public function publish(Announcement $announcement)
+    {
+        $announcement->update(['is_publish' => 1]);
+        return back()->with('message', 'Объявление успешно опубликовано');
+    }
+
+    public function reject(Announcement $announcement)
+    {
+        $announcement->update(['is_publish' => 0]);
+        $announcement->delete();
+        return back()->with('message', 'Объявление снято с публикации');
     }
 }
