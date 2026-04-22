@@ -27,7 +27,14 @@
     </div>
     <div class="form-item">
       <label for="role">Роль</label>
-      <input id="role" type="text" name="role" value="{{ $bearer->role }}">
+      <select id="role" name="role" class="form-control">
+        <option value="bearer" {{ (old('role', $bearer->role) == 'bearer') ? 'selected' : '' }}>
+          bearer
+        </option>
+        <option value="admin" {{ (old('role', $bearer->role) == 'admin') ? 'selected' : '' }}>
+          admin
+        </option>
+      </select>
       <div class="error-box">
         @error('role')
         {{ $message }}
