@@ -48,18 +48,24 @@
     @endif
     <div class="form-item">
       <label for="images" class="create-label">Фотографии (не более шести)</label>
-      <input type="file" wire:model="images" id="images" multiple accept="image/*">
-      <!-- Индикатор загрузки -->
+      {{-- Добавляем wire:key, чтобы Livewire не путался при перерендере --}}
+      <input type="file" wire:model="images" id="images" multiple accept="image/*" wire:key="upload-{{ count($images) }}">
+
       <div wire:loading wire:target="images">Загрузка...</div>
-      @if ($images)
+
+      @if ($images && is_array($images))
       <div class="preview-container" style="display: flex; gap: 10px; margin-top: 10px;">
-        @foreach ($images as $image)
-        <img src="{{ $image->temporaryUrl() }}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
+        @foreach ($images as $index => $image)
+        {{-- Проверка, что файл загрузился во временную папку --}}
+        @if (method_exists($image, 'temporaryUrl'))
+        <img src="{{ $image->temporaryUrl() }}" wire:key="p-{{ $index }}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
+        @endif
         @endforeach
       </div>
       @endif
-      @error('images.*') <span class="error">{{ $message }}</span> @enderror
-      @error('images') <span class="error">{{ $message }}</span> @enderror
+
+      @error('images.*') <span class="error-box">{{ $message }}</span> @enderror
+      @error('images') <span class="error-box">{{ $message }}</span> @enderror
     </div>
     <button type="submit">Сохранить объявление</button>
   </form>

@@ -9,6 +9,9 @@ use App\Models\Subcategory;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Log;
+use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class CreateAnnouncement extends Component
 {
@@ -20,7 +23,7 @@ class CreateAnnouncement extends Component
     public $title;
     public $text;
     public $action;
-    public $images;
+    public $images = [];
     public $is_publish = false;
 
     public function messages()
@@ -36,16 +39,29 @@ class CreateAnnouncement extends Component
         ];
     }
 
+    public function updatedImages()
+    {
+        $this->validate([
+            'images.*' => 'image|max:2048', // 2MB Max
+        ]);
+
+        if (count($this->images) > 6) {
+            $this->images = array_slice($this->images, 0, 6);
+            $this->addError('images', 'Можно загрузить не более 6 изображений.');
+        }
+    }
+
+    // 2. Исправленный метод save
     public function save()
     {
-        $validated = $this->validate([
+        $this->validate([
             'title' => ['required', 'min:3'],
             'text' => ['required', 'min:3'],
             'action' => ['required'],
             'category_id' => ['required'],
             'subcategory_id' => ['required'],
-            'images.*' => 'image|max:2048',
-            'images' => 'nullable|array|max:6',
+            'images' => ['nullable', 'array', 'max:6'],
+            'images.*' => ['image', 'max:2048'],
         ]);
 
         $announcement = Announcement::create([
@@ -57,9 +73,24 @@ class CreateAnnouncement extends Component
             'subcategory_id' => $this->subcategory_id,
         ]);
 
-        if ($this->images) {
+        if (!empty($this->images)) {
+            $manager = new ImageManager(new Driver());
+
             foreach ($this->images as $index => $image) {
-                $path = $image->store('announcements', 'public');
+                // Генерируем уникальное имя
+                $fileName = uniqid() . '.webp';
+                $path = 'announcements/' . $fileName;
+
+                // Обработка через Intervention
+                // Используем getRealPath(), чтобы прочитать временный файл
+                $img = $manager->read($image->getRealPath())
+                    ->cover(210, 210)
+                    ->toWebp(80);
+
+                // Сохраняем файл на диск public
+                Storage::disk('public')->put($path, (string) $img);
+
+                // Записываем в базу данных
                 $announcement->images()->create([
                     'path' => $path,
                     'is_preview' => ($index === 0),
@@ -68,8 +99,11 @@ class CreateAnnouncement extends Component
         }
 
         session()->flash('message', 'Объявление создано!');
+
+        // Сброс всех полей
         $this->reset(['title', 'text', 'action', 'category_id', 'subcategory_id', 'images']);
     }
+
 
     public function render()
     {

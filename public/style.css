@@ -398,8 +398,8 @@ footer {
   background-repeat: no-repeat;
   background-position: center;
   flex-shrink: 0;
-  width: 190px;
-  height: 159px;
+  width: 210px;
+  height: 210px;
   background-color: #F3F3F3;
   object-fit: cover;
 }
