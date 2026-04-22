@@ -50,6 +50,7 @@ class ReadAnnouncement extends Component
             // Фильтруем объявления прямо здесь
             $announcements = $selectedSubcategory->announcements()
                 ->with('images')
+                ->where('is_publish', true)
                 ->when($this->filterAction, function ($query) {
                     return $query->where('action', $this->filterAction);
                 })
