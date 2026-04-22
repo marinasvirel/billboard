@@ -459,10 +459,9 @@ footer {
 }
 
 .announcement-photos-item {
-  flex: 1;
+  flex: 0 0 auto;
   aspect-ratio: 1 / 1;
-  max-width: 210px;
-  min-width: 100px;
+  width: 210px;
   height: auto;
   overflow: hidden;
 }
@@ -473,6 +472,46 @@ footer {
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.announcement-tags{
+  display: flex;
+}
+
+.announcement-tag{
+  padding: 10px;
+  background-color: #D9D9D9;
+  border: 1px #C18C4E solid;
+  color: #C18C4E;
+  font-weight: 700;
+}
+
+.announcement-box{
+  margin-bottom: 60px;
+}
+
+.announcement-admin-btns{
+  display: flex;
+  gap: 15px;
+}
+
+.announcement-admin-btns button{
+  border-color: #907250;
+}
+
+.announcement-admin-title,
+.announcement-admin-text,
+.announcement-text{
+  margin-bottom: 15px;
+}
+
+.announcement-author{
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.announcement-admin-margin{
+  margin: 0 10px;
 }
 
 @media(max-width: 1000px) {

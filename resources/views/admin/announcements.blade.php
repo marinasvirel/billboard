@@ -6,28 +6,31 @@
   <x-links-admin />
   <div class="substrate">
     @foreach($announcements as $announcement)
-    <div>
-      <div>{{ $announcement->category->name }}</div>
-      <div>{{ $announcement->subcategory->name }}</div>
-      <div>{{ $announcement->action }}</div>
-      <h2>{{ $announcement->title }}</h2>
-      <p>{{ $announcement->text }}</p>
-      <div class="gallery">
-        @foreach($announcement->images as $image)
-        <img src="{{ asset('storage/' . $image->path) }}"
-          alt="{{ $announcement->title }}">
-        @endforeach
+    <div class="announcement-box">
+      <div class="announcement-tags">
+        <div class="announcement-tag">{{ $announcement->category->name }}</div>
+        <div class="announcement-tag">{{ $announcement->subcategory->name }}</div>
+        <div class="announcement-tag">{{ $announcement->action }}</div>
       </div>
-      <p>Автор: {{ $announcement->user->name }}</p>
-      <div class="flex gap-2">
-        {{-- Кнопка Опубликовать --}}
+      <ul class="announcement-photos-list">
+        @foreach($announcement->images as $image)
+        <li class="announcement-photos-item">
+          <img src="{{ asset('storage/' . $image->path) }}"
+            alt="{{ $announcement->title }}">
+        </li>
+        @endforeach
+      </ul>
+      <div class="announcement-admin-margin">
+        <h2 class="announcement-admin-title">{{ $announcement->title }}</h2>
+        <p class="announcement-admin-text">{{ $announcement->text }}</p>
+        <p class="announcement-author">Автор: {{ $announcement->user->name }}</p>
+      </div>
+      <div class="announcement-admin-btns">
         <form action="{{ route('admin.announcements.publish', $announcement->slug) }}" method="POST">
           @csrf
           @method('PATCH')
           <button type="submit" class="btn btn-success">Опубликовать</button>
         </form>
-
-        {{-- Кнопка Отклонить --}}
         <form action="{{ route('admin.announcements.reject', $announcement->slug) }}" method="POST">
           @csrf
           @method('PATCH')
