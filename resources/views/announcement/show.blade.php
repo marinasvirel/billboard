@@ -13,7 +13,7 @@
     </ul>
     <div class="announcement-content">
         <h1>{{ $announcement->title }}</h1>
-        <p class="announcement-text">{{ $announcement->text }}</p>
+        <p class="announcement-text-show">{{ $announcement->text }}</p>
         <p class="announcement-author">Автор: {{ $announcement->user->name }}</p>
     </div>
 </div>
