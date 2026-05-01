@@ -35,27 +35,27 @@ class AdminController extends Controller
             'role' => 'min:2',
         ]);
         $bearer->update($validated);
-        return redirect()->route('admin')->with('message', 'Обновлено!');
+        return back()->with('message', __('admin.updated'));
     }
     public function ban(User $user)
     {
         if ($user->id === Auth::id()) {
-            return back()->with('message', 'Вы не можете забанить самого себя!');
+            return back()->with('message', __('admin.nobanned'));
         }
         $user->update(['is_banned' => true]);
-        return back()->with('message', "Пользователь {$user->name} заблокирован.");
+        return back()->with('message', __('admin.ban', ['name' => $user->name]));
     }
 
     public function unban(User $user)
     {
         $user->update(['is_banned' => false]);
-        return back()->with('message', "Пользователь {$user->name} разблокирован.");
+        return back()->with('message', __('admin.unban', ['name' => $user->name]));
     }
 
     public function announcementsView()
     {
         $announcements = Announcement::with(['user', 'category', 'subcategory', 'images'])
-            ->where('is_publish', false) // обычно нужны только опубликованные
+            ->where('is_publish', false)
             ->get();
         return view('admin.announcements', compact('announcements'));
     }
@@ -63,13 +63,13 @@ class AdminController extends Controller
     public function publish(Announcement $announcement)
     {
         $announcement->update(['is_publish' => 1]);
-        return back()->with('message', 'Объявление успешно опубликовано');
+        return back()->with('message', __('admin.publish'));
     }
 
     public function reject(Announcement $announcement)
     {
         $announcement->update(['is_publish' => 0]);
         $announcement->delete();
-        return back()->with('message', 'Объявление снято с публикации');
+        return back()->with('message', __('admin.nopublish'));
     }
 }

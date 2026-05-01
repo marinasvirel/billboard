@@ -13,7 +13,7 @@ class CheckBanned
     {
         if (Auth::check() && Auth::user()->is_banned) {
             Auth::logout();
-            return redirect()->route('login')->with('message', 'Ваш аккаунт заблокирован.');
+            return redirect()->route('login')->with('message', __('auth.banned'));
         }
         return $next($request);
     }

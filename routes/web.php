@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/email/verification-notification', function (Request $request) {
         $request->user()->sendEmailVerificationNotification();
-        return back()->with('message', 'Verification link sent!');
+        return back()->with('message', __('auth.verification'));
     })->middleware('throttle:6,1')->name('verification.send');
 
     Route::get('logout', [UserController::class, 'logout'])->name('logout');

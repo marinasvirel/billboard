@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', $announcement->title)
+@section('title', $announcement->title . ' (ID: ' . $announcement->id . ')')
 @section('content')
 <div class="announcement">
     <ul class="announcement-photos-list">
