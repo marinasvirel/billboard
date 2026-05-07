@@ -77,4 +77,12 @@
       });
     });
   </script>
+  <script>
+    document.addEventListener('livewire:init', () => {
+      Livewire.on('update-browser-title', (data) => {
+        // В Livewire 3 параметры события передаются как объект
+        document.title = data.title;
+      });
+    });
+  </script>
 </div>
