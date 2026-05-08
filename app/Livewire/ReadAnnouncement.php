@@ -9,14 +9,23 @@ use Livewire\Attributes\Url;
 
 class ReadAnnouncement extends Component
 {
-    #[Url(as: 'category')]
-    public $activeCategoryName = null; // Изменено с ID на Name
+    // Теперь это обычные свойства, они приходят из роута или обновляются методом
+    public $activeCategorySlug = null;
+    public $activeSubcategorySlug = null;
 
-    #[Url(as: 'subcategory')]
-    public $activeSubcategoryName = null; // Изменено с ID на Name
-
+    // Фильтр (продам/куплю) оставляем в query string (?filter=...)
     #[Url(as: 'filter')]
     public $filterAction = null;
+
+    /**
+     * Вызывается при загрузке страницы
+     */
+    public function mount($categorySlug = null, $subcategorySlug = null)
+    {
+        $this->activeCategorySlug = $categorySlug;
+        $this->activeSubcategorySlug = $subcategorySlug;
+        $this->updateTitle();
+    }
 
     public function setFilter($action = null)
     {
@@ -24,45 +33,69 @@ class ReadAnnouncement extends Component
         $this->updateTitle();
     }
 
-    public function selectCategory($name)
+    public function selectCategory($slug)
     {
-        if ($this->activeCategoryName === $name) {
-            $this->activeCategoryName = null;
-            $this->activeSubcategoryName = null;
+        if ($this->activeCategorySlug === $slug) {
+            $this->activeCategorySlug = null;
+            $this->activeSubcategorySlug = null;
         } else {
-            $this->activeCategoryName = $name;
-            $this->activeSubcategoryName = null;
+            $this->activeCategorySlug = $slug;
+            $this->activeSubcategorySlug = null;
         }
+
         $this->filterAction = null;
+        $this->syncUrl(); // Обновляем адресную строку
         $this->updateTitle();
     }
 
-    public function selectSubcategory($name)
+    public function selectSubcategory($slug)
     {
-        $this->activeSubcategoryName = ($this->activeSubcategoryName === $name) ? null : $name;
+        $this->activeSubcategorySlug = ($this->activeSubcategorySlug === $slug) ? null : $slug;
         $this->filterAction = null;
+
+        $this->syncUrl(); // Обновляем адресную строку
         $this->updateTitle();
+    }
+
+    /**
+     * Метод для синхронизации URL без перезагрузки страницы
+     */
+    private function syncUrl()
+    {
+        $url = '/';
+        if ($this->activeCategorySlug) {
+            $url .= $this->activeCategorySlug;
+            if ($this->activeSubcategorySlug) {
+                $url .= '/' . $this->activeSubcategorySlug;
+            }
+        }
+
+        // Используем pushState, чтобы URL в браузере сменился на ЧПУ мгновенно
+        $this->js("history.pushState({}, '', '{$url}')");
     }
 
     private function updateTitle()
     {
         $title = 'Доска объявлений | Главная';
 
-        if ($this->activeSubcategoryName) {
-            $sub = Subcategory::with('category')->where('name', $this->activeSubcategoryName)->first();
-            if ($sub && $sub->category) {
+        if ($this->activeSubcategorySlug && $this->activeCategorySlug) {
+            $sub = Subcategory::where('slug', $this->activeSubcategorySlug)
+                ->whereHas('category', function ($query) {
+                    $query->where('slug', $this->activeCategorySlug);
+                })
+                ->first();
+
+            if ($sub) {
                 $title = "{$sub->category->name} | {$sub->name}";
             }
-        } elseif ($this->activeCategoryName) {
-            $title = $this->activeCategoryName;
+        } elseif ($this->activeCategorySlug) {
+            $cat = Category::where('slug', $this->activeCategorySlug)->first();
+            if ($cat) {
+                $title = $cat->name;
+            }
         }
 
         $this->dispatch('update-browser-title', title: $title);
-    }
-
-    public function mount()
-    {
-        $this->updateTitle();
     }
 
     public function render()
@@ -70,8 +103,8 @@ class ReadAnnouncement extends Component
         $selectedSubcategory = null;
         $announcements = collect();
 
-        if ($this->activeSubcategoryName) {
-            $selectedSubcategory = Subcategory::where('name', $this->activeSubcategoryName)->first();
+        if ($this->activeSubcategorySlug) {
+            $selectedSubcategory = Subcategory::where('slug', $this->activeSubcategorySlug)->first();
 
             if ($selectedSubcategory) {
                 $announcements = $selectedSubcategory->announcements()

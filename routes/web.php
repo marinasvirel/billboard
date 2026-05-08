@@ -7,9 +7,12 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+// Route::get('/{categorySlug?}/{subcategorySlug?}', function ($categorySlug = null, $subcategorySlug = null) {
+//     return view('home', [
+//         'categorySlug' => $categorySlug,
+//         'subcategorySlug' => $subcategorySlug
+//     ]);
+// })->name('home');
 
 Route::get('/announcement/{announcement}', [AnnouncementController::class, 'show'])->name('announcements.show');
 
@@ -77,3 +80,12 @@ Route::middleware(['auth', 'verified', 'check.banned'])->group(function () {
         });
     });
 });
+
+Route::get('/{categorySlug?}/{subcategorySlug?}', function ($categorySlug = null, $subcategorySlug = null) {
+    return view('home', [
+        'categorySlug' => $categorySlug,
+        'subcategorySlug' => $subcategorySlug
+    ]);
+})
+    ->where('categorySlug', '^(?!login|register|admin|profile|verify|logout|announcement).*')
+    ->name('home');

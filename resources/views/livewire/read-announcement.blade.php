@@ -2,8 +2,10 @@
   <ul class="announcement-categories" id="categories-list">
     @foreach($categories as $category)
     <li wire:key="category-{{ $category->id }}"
-      wire:click="selectCategory('{{ $category->name }}')"
-      class="announcement-category {{ $activeCategoryName === $category->name ? 'is-active' : '' }}">
+      {{-- Передаем slug в метод --}}
+      wire:click="selectCategory('{{ $category->slug }}')"
+      {{-- Проверяем по slug --}}
+      class="announcement-category {{ $activeCategorySlug === $category->slug ? 'is-active' : '' }}">
       {!! $category->svg !!}
       <h2 class="announcement-category-title">{{ $category->name }}</h2>
     </li>
@@ -11,12 +13,14 @@
   </ul>
 
   @foreach($categories as $category)
-  @if($activeCategoryName === $category->name)
+  {{-- Проверяем активную категорию по slug --}}
+  @if($activeCategorySlug === $category->slug)
   <ul class="announcement-subcategories" wire:key="content-{{ $category->id }}">
     @foreach($category->subcategories as $subcategory)
-    <li class="announcement-subcategory {{ $activeSubcategoryName === $subcategory->name ? 'is-active' : '' }}"
+    <li class="announcement-subcategory {{ $activeSubcategorySlug === $subcategory->slug ? 'is-active' : '' }}"
       wire:key="sub-{{ $subcategory->id }}"
-      wire:click="selectSubcategory('{{ $subcategory->name }}')">
+      {{-- Передаем slug подкатегории --}}
+      wire:click="selectSubcategory('{{ $subcategory->slug }}')">
       <h3 class="announcement-subcategory-title">{{ $subcategory->name }}</h3>
     </li>
     @endforeach
@@ -32,11 +36,14 @@
         class="announcement-action {{ is_null($filterAction) ? 'is-active' : '' }}">
         Все
       </div>
+      {{-- Собираем уникальные действия для фильтрации --}}
       @foreach($selectedSubcategory->announcements->pluck('action')->unique() as $action)
+      @if($action) {{-- Проверка на наличие действия --}}
       <div wire:click="setFilter('{{ $action }}')"
         class="announcement-action {{ $filterAction === $action ? 'is-active' : '' }}">
         {{ $action }}
       </div>
+      @endif
       @endforeach
       @endif
     </div>
@@ -67,21 +74,22 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var categoriesList = document.getElementById('categories-list');
-
-      // Подписываемся на клики по категориям
-      categoriesList.addEventListener('click', function(event) {
-        event.preventDefault(); // Предотвращаем стандартное поведение клика
-
-        // Возвращаем прокрутку к началу
-        categoriesList.scrollLeft = 0;
-      });
+      if (categoriesList) {
+        categoriesList.addEventListener('click', function(event) {
+          // Скроллим к началу только если кликнули по элементу списка
+          if (event.target.closest('li')) {
+            categoriesList.scrollLeft = 0;
+          }
+        });
+      }
     });
   </script>
+
   <script>
     document.addEventListener('livewire:init', () => {
       Livewire.on('update-browser-title', (data) => {
-        // В Livewire 3 параметры события передаются как объект
-        document.title = data.title;
+        // Поддержка формата Livewire 3 (данные приходят объектом или массивом)
+        document.title = data.title || data[0].title;
       });
     });
   </script>
